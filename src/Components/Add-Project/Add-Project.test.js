@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import AddProject from './Add-Project';
-import AddProjectModal from '../Add-Project-Modal/Add-Project-Modal';
+import Modal from 'react-modal';
 
 let addProject;
 
@@ -19,11 +19,21 @@ describe('AddProject', () => {
         expect(addProject.state().modalOpen).toBe(true);
     });
 
-    it('should contain a `Add-Project-Modal` component', () => {
-        expect(addProject.find(AddProjectModal).exists()).toBe(true);
+    it('should contain a Modal Component', () => {
+        expect(addProject.find(Modal).exists()).toBe(true);
     });
 
-    it('should send a boolean flag to `Add-Project-Modal`', () => {
+    it('should contain a form component', () => {
 
     });
+
+    it('should dispatch addProject action on the click of a submit button', () => {
+
+    });
+
+    it('should close the modal when close button is clicked', () => {
+
+    });
+
+
 });
