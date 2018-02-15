@@ -16,7 +16,7 @@ describe('AddProject', () => {
 
     it('should set `modalOpen` to true on the click of an add button', () => {
         addProject.find('button').simulate('click', { preventDefault: jest.fn() });
-        expect(addProject.state().modalOpen).toBe(true);
+        expect(addProject.state().isOpen).toBe(true);
     });
 
     it('should contain a Modal Component', () => {
@@ -24,7 +24,7 @@ describe('AddProject', () => {
     });
 
     it('should contain a form component', () => {
-
+        expect(addProject.find('form').exists()).toBe(true);
     });
 
     it('should dispatch addProject action on the click of a submit button', () => {
@@ -34,6 +34,10 @@ describe('AddProject', () => {
     it('should close the modal when close button is clicked', () => {
 
     });
+
+    it('should take you to my projects page after successfully adding a project', () => {
+
+    })
 
 
 });

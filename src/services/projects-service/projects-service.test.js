@@ -1,9 +1,9 @@
 import sinon from 'sinon';
-import projectService from './projects-service';
+import { addProject } from './projects-service';
 
 const sandbox = sinon.createSandbox();
 
-describe.only('projects service', () => {
+describe('projects service', () => {
    beforeEach(() => {
        sandbox.stub(window, 'fetch').resolves({
            json: sandbox.stub().returns([{ "name": "Project" }])
@@ -15,7 +15,7 @@ describe.only('projects service', () => {
    });
 
     it('should return an array of projects', () => {
-        projectService.addProject({}).then(response => {
+        addProject({}).then(response => {
             expect(response).toEqual([{ "name": "Project" }])
         })
     })

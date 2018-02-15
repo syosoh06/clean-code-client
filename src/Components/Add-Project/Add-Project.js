@@ -1,4 +1,5 @@
 import React from 'react';
+import Modal from 'react-modal';
 
 function openModal(ev) {
     ev.preventDefault();
@@ -14,7 +15,7 @@ class AddProject extends React.Component {
         super(props);
 
         this.state = {
-            modalOpen: false
+            isOpen: false
         }
     }
 

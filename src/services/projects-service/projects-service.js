@@ -1,6 +1,6 @@
 const url = 'http://localhost:8080/api/projects';
 
-const addProject = (requestParams) => {
+export const addProject = (requestParams) => {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -12,9 +12,3 @@ const addProject = (requestParams) => {
             return response.json();
         });
 };
-
-const projectService = {
-    addProject
-};
-
-export default projectService;
