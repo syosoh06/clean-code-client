@@ -20,18 +20,11 @@ describe('async actions', () => {
         sandbox.restore();
     });
 
-    it.only('creates ADD_PROJECT_SUCCESS when adding a project has been successfully completed', () => {
-
-
-        const expectedActions =
-            { type: 'ADD_PROJECT_SUCCESS' }
-        ;
-        const project = {
-          name: 'project1'
-        };
+    it('creates ADD_PROJECT_SUCCESS when adding a project has been successfully completed', () => {
+        const expectedActions = { type: 'ADD_PROJECT_SUCCESS' };
+        const project = { name: 'project1' };
 
         addProjectAction(project)(dispatchStub).then(()=>{
-
             sinon.assert.calledOnce(dispatchStub);
             sinon.assert.calledWithExactly(dispatchStub, expectedActions);
         });

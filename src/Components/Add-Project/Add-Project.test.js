@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import AddProject from './Add-Project';
+import { AddProject } from './Add-Project';
 import Modal from 'react-modal';
 
 let addProject;
