@@ -5,6 +5,8 @@ You can find the most recent version of this guide [here](https://github.com/fac
 
 ## Table of Contents
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/01bf3418eebc447b854f775e74131f3d)](https://app.codacy.com/app/sohamc_com/clean-code-client?utm_source=github.com&utm_medium=referral&utm_content=syosoh06/clean-code-client&utm_campaign=badger)
+
 - [Updating to New Releases](#updating-to-new-releases)
 - [Sending Feedback](#sending-feedback)
 - [Folder Structure](#folder-structure)
