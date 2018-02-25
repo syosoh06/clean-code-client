@@ -1,8 +1,8 @@
 import React from 'react';
-import Modal from 'react-modal';
 import {connect} from "react-redux";
-// import createHistory from "history/createBrowserHistory";
-import { addProjectAction } from '../../actions/project-actions/project-actions';
+import { addProjectAction , getProjectsAction , deleteProjectAction} from '../../actions/project-actions/project-actions';
+import ProjectsList from "../Projects-List/Projects-List";
+import AddProjectModal from "../Add-Project-Modal/Add-Project-Modal";
 
 const userObj = {
     "name": "Bebo",
@@ -13,8 +13,6 @@ const userObj = {
     "dateModified": "2018-01-21T07:40:01.519Z"
 
 };
-// const history = createHistory();
-
 function openModal(ev) {
     ev.preventDefault();
 
@@ -23,50 +21,52 @@ function openModal(ev) {
     }))
 }
 
-function closeModal(ev) {
-    ev.preventDefault();
-
-    this.setState(prevState => ({
-        isOpen: !prevState.isOpen
-    }))
-}
-
-function handleChange(event) {
-    this.setState({value: event.target.value});
-}
-
 export class AddProject extends React.Component {
-
     constructor(props) {
         super(props);
 
         this.state = {
             isOpen: false,
             projectName: ''
+        };
+
+        this.submitNewProjectForm = this.submitNewProjectForm.bind(this);
+        this.closeModal = this.closeModal.bind(this);
+        this.deleteProject = this.deleteProject.bind(this);
+    }
+
+    componentDidMount() {
+        this.props.getProjects();
+    }
+
+    submitNewProjectForm(e, projectName) {
+        e.preventDefault();
+        if (!projectName.trim()) {
+            return
         }
+        this.props.submitProject(projectName);
+    }
+
+    closeModal(ev) {
+        ev.preventDefault();
+
+        this.setState(prevState => ({
+            isOpen: !prevState.isOpen
+        }))
+    }
+
+    deleteProject(ev, id) {
+        debugger;
+        ev.preventDefault();
+
+        this.props.deleteProject(id);
     }
 
     render() {
         return (<section>
             <button onClick={openModal.bind(this)}>Add Project</button>
-            <Modal isOpen={ this.state.isOpen }>
-                <section>
-                    <form onSubmit={this.props.submitProject(this.state.projectName)}>
-                        <div>
-                            Enter Project Name
-                        </div>
-                        <div>
-                            <input type="text" value={this.state.projectName} onChange={handleChange.bind(this)}/>
-                        </div>
-                        <div>
-                            <input type="submit" value="Submit"/>
-                        </div>
-                        <div>
-                            <button onClick={closeModal.bind(this)}>Close</button>
-                        </div>
-                    </form>
-                </section>
-            </Modal>
+            <AddProjectModal isOpen = {this.state.isOpen} submitNewProjectForm = {this.submitNewProjectForm} closeModal = {this.closeModal}/>
+            <ProjectsList projects = { this.props.projects } deleteProject = { this.deleteProject } />
         </section>);
     }
 
@@ -75,11 +75,15 @@ export class AddProject extends React.Component {
 const mapDispatchToProps = (dispatch) => {
     return {
         submitProject: (name, user = userObj) => {
-            debugger;
             dispatch(addProjectAction({name, user}));
-            // history.push("/projects");
-        }
+        },
+        getProjects: () => dispatch(getProjectsAction()),
+        deleteProject: (id) => dispatch(deleteProjectAction(id))
     };
 };
 
-export default connect(null, mapDispatchToProps)(AddProject);
+const mapStateToProps = (state) => ({
+    projects: state.projects
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddProject);

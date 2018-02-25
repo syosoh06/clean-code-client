@@ -1,25 +1,23 @@
-const url = 'http://localhost:8080/api/projects';
+import axios from 'axios';
 
-export const addProject = (requestParams) => {
-    const requestOptions = {
-        method: 'POST',
-        headers: {"Access-Control-Allow-Origin": "*"},
-        body: requestParams
-    };
+const url = 'https://clean-code-api.now.sh/api/projects';
 
-    const request = new Request('http://localhost:8080/api/projects', {
-        method: 'POST',
-        mode: 'cors',
-        redirect: 'follow',
-        headers: new Headers({
-            'Content-Type': 'text/plain'
-        })
+export const addProject = (requestParams) => axios ({
+        method: 'post',
+        url: url,
+        data: requestParams
     });
 
-    debugger;
-    return fetch(request)
-        .then(response => {
-            debugger;
-            return response.json();
-        });
-};
+export const getProjects = () => axios.get(url);
+
+export const deleteProject = (projectId) => axios({
+    method: 'delete',
+    url: url + '/' + projectId
+});
+
+export const updateProject = (project) => axios({
+    method: 'put',
+    url: url + '/' + project._id,
+    data: project
+});
+
