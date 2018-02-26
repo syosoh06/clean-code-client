@@ -1,31 +1,29 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { AddProject } from './Add-Project';
-import Modal from 'react-modal';
+import sinon from 'sinon';
 
-let addProject;
+const sandbox = sinon.sandbox.create();
 
 describe('AddProject', () => {
-    beforeEach(() => {
-        addProject = shallow(<AddProject />);
+    afterEach(() => {
+        sandbox.restore();
     });
+
+    function anyProps() {
+        return {
+            getProjects: sandbox.stub()
+        };
+    }
+
+    function render(props = anyProps()) {
+        return shallow(<AddProject {...props}/>);
+    }
 
     it('should contain an add button', () => {
-        expect(addProject.find('button').text()).toEqual('Add Project');
+        expect(render().find('button').text()).toEqual('Add Project');
     });
 
-    it('should set `modalOpen` to true on the click of an add button', () => {
-        addProject.find('button').simulate('click', { preventDefault: jest.fn() });
-        expect(addProject.state().isOpen).toBe(true);
-    });
-
-    it('should contain a Modal Component', () => {
-        expect(addProject.find(Modal).exists()).toBe(true);
-    });
-
-    it('should contain a form component', () => {
-        expect(addProject.find('form').exists()).toBe(true);
-    });
 
     it('should dispatch addProject action on the click of a submit button', () => {
 
